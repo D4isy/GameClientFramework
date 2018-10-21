@@ -37,13 +37,13 @@
     <Filter Include="Obj\MoveObj\Player">
       <UniqueIdentifier>{3f7cf94b-e328-4bee-afa6-fc4c46a924f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obj\MoveObj\Monster">
+      <UniqueIdentifier>{d2c78d0d-1baa-4302-a221-e086870d0b82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Core.cpp">
-      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneManager.cpp">
       <Filter>Scene</Filter>
@@ -75,6 +75,12 @@
     <ClCompile Include="Obj\Player.cpp">
       <Filter>Obj\MoveObj\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Obj\Minion.cpp">
+      <Filter>Obj\MoveObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Core.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -88,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneManager.h">
       <Filter>Scene</Filter>
@@ -124,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="Obj\Player.h">
       <Filter>Obj\MoveObj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Minion.h">
+      <Filter>Obj\MoveObj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Core.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -149,10 +149,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Core\Core.cpp" />
     <ClCompile Include="Core\Ref.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Obj\Minion.cpp" />
     <ClCompile Include="Obj\MoveObj.cpp" />
     <ClCompile Include="Obj\Obj.cpp" />
     <ClCompile Include="Obj\Player.cpp" />
@@ -163,12 +164,13 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core.h" />
+    <ClInclude Include="Core\Core.h" />
     <ClInclude Include="Core\Ref.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="Obj\Minion.h" />
     <ClInclude Include="Obj\MoveObj.h" />
     <ClInclude Include="Obj\Obj.h" />
     <ClInclude Include="Obj\Player.h" />

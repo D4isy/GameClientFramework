@@ -1,5 +1,5 @@
 
-#include "Core.h"
+#include "Core/Core.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance, 
 	_In_opt_ HINSTANCE hPrevInstance,

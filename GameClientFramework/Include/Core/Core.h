@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game.h"
+#include "../Game.h"
 
 class CCore
 {
@@ -32,6 +32,11 @@ private:
 	HWND		m_hWnd;
 	HDC			m_hDC;
 	RESOLUTION	m_tRS;
+
+public:
+	RESOLUTION GetResolution() const {
+		return m_tRS;
+	}
 
 public:
 	bool Init(_In_ HINSTANCE hInst);
