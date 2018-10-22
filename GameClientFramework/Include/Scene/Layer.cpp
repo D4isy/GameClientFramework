@@ -1,7 +1,7 @@
 #include "Layer.h"
 #include "../Obj/Obj.h"
 
-
+//test
 CLayer::CLayer() :
 	m_iZOrder(0),
 	m_strTag(""),
