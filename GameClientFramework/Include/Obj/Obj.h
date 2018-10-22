@@ -1,0 +1,116 @@
+#pragma once
+
+#include "../Scene/Layer.h"
+#include "../Core/Ref.h"
+
+class CObj :
+	public CRef
+{
+protected:
+	CObj();
+	CObj(const CObj& obj);
+	virtual ~CObj();
+
+private:
+	static list<CObj*>	m_ObjList;
+	static unordered_map<string, CObj*> m_mapProtoType;
+
+public:
+	static void AddObj(CObj* pObj);
+	static CObj* FindObject(const string& strTag);
+	static void EraseObj(CObj* pObj);
+	static void EraseObj(const string& strTag);
+	static void EraseObj();
+
+protected:
+	class CScene*	m_pScene;
+	class CLayer*	m_pLayer;
+
+public:
+	void SetScene(class CScene* pScene) {
+		m_pScene = pScene;
+	}
+
+	void SetLayer(class CLayer* pLayer) {
+		m_pLayer = pLayer;
+	}
+
+	class CScene* GetScene() const {
+		return m_pScene;
+	}
+
+	class CLayer* GetLayer() const {
+		return m_pLayer;
+	}
+
+protected:
+	string		m_strTag;
+	POSITION	m_tPos;
+	_SIZE		m_tSize;
+	POSITION	m_tPivot;
+
+public:
+	string GetTag() const {
+		return m_strTag;
+	}
+
+	POSITION GetPos() const {
+		return m_tPos;
+	}
+
+	_SIZE GetSize() const {
+		return m_tSize;
+	}
+public:
+	void SetTag(const string& strTag) {
+		m_strTag = strTag;
+	}
+
+	void SetPos(const POSITION& tPos) {
+		m_tPos = tPos;
+	}
+
+	void SetPos(float x, float y) {
+		m_tPos.x = x;
+		m_tPos.y = y;
+	}
+
+	void SetSize(const _SIZE& tSize) {
+		m_tSize = tSize;
+	}
+
+	void SetSize(float x, float y) {
+		m_tSize.x = x;
+		m_tSize.y = y;
+	}
+
+public:
+	virtual bool Init() = 0;
+	virtual void Input(float fDeltaTime);
+	virtual int Update(float fDeltaTime);
+	virtual int LateUpdate(float fDeltaTime);
+	virtual void Collision(float fDeltaTime);
+	virtual void Render(HDC hDC, float fDeltaTime);
+
+public:
+	// C++ 불완전한 클래스 형식에 대한 포인터는 사용할 수 없습니다
+	// -> 헤더파일을 포함하지 않았을 경우 뜰 수 있는 에러
+	template <typename T>
+	static T* CreateObj(const string& strTag, class CLayer* pLayer = NULL) {
+		T* pObj = new T;
+
+		if (!pObj->Init()) {
+			SAFE_RELEASE(pObj);
+			return NULL;
+		}
+
+		if (pLayer) {
+			pLayer->AddObject(pObj);
+		}
+
+		AddObj(pObj);
+
+		return pObj;
+	}
+};
+
