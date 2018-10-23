@@ -2,6 +2,7 @@
 #include "../Scene/SceneManager.h"
 #include "Timer.h"
 #include "PathManager.h"
+#include "../Resource/ResourcesManager.h"
 
 CCore* CCore::m_pInst = NULL;
 bool CCore::m_bLoop = true;
@@ -16,10 +17,12 @@ CCore::CCore()
 
 CCore::~CCore()
 {
-	ReleaseDC(m_hWnd, m_hDC);
-	DESTROY_SINGLE(CTimer);
-	DESTROY_SINGLE(CPathManager);
 	DESTROY_SINGLE(CSceneManager);
+	DESTROY_SINGLE(CResourcesManager);
+	DESTROY_SINGLE(CPathManager);
+	DESTROY_SINGLE(CTimer);
+
+	ReleaseDC(m_hWnd, m_hDC);
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -44,6 +47,11 @@ bool CCore::Init(HINSTANCE hInst)
 
 	// 경로관리자 초기화
 	if (!GET_SINGLE(CPathManager)->Init()) {
+		return false;
+	}
+
+	// 리소스 관리자 초기화
+	if (!GET_SINGLE(CResourcesManager)->Init(hInst, m_hDC)) {
 		return false;
 	}
 

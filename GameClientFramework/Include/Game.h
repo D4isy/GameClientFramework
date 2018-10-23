@@ -14,6 +14,8 @@ using namespace std;
 #include "Flag.h"
 #include "Types.h"
 
+#pragma comment(lib, "msimg32")
+
 #define		PI		3.141592f
 
 // Path Key

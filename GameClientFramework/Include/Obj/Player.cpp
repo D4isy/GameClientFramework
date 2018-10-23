@@ -18,8 +18,10 @@ CPlayer::~CPlayer()
 bool CPlayer::Init()
 {
 	SetPos(100.f, 100.f);
-	SetSize(100.f, 100.f);
+	SetSize(140.f, 226.f);
 	SetSpeed(400.f);
+
+	SetTexture("Player", L"Pig.bmp");
 	return true;
 }
 
@@ -68,8 +70,8 @@ void CPlayer::Collision(float fDeltaTime)
 void CPlayer::Render(HDC hDC, float fDeltaTime)
 {
 	CMoveObj::Render(hDC, fDeltaTime);
-	Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y), 
-		static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
+	//Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y), 
+	//	static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
 }
 
 CPlayer * CPlayer::Clone()

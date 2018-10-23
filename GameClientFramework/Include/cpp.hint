@@ -2,3 +2,5 @@
 // 해석하는 데 도움이 됩니다.
 // 자세한 내용은 다음을 참조하세요. https://go.microsoft.com/fwlink/?linkid=865984
 #define DECLARE_SINGLE(Type) private: static Type* m_pInst; public: static Type* GetInst() { if (!m_pInst) { m_pInst = new Type; } return m_pInst; } static void DestroyInst() { SAFE_DELETE(m_pInst); } private: Type(); ~Type();
+#define DECLARE_SINGLE(Type) private: static Type* m_pInst; public: static Type* GetInst() { if (!m_pInst) { m_pInst = new Type; } return m_pInst; } static void DestroyInst() { SAFE_DELETE(m_pInst); } private: Type(); ~Type();
+#define DECLARE_SINGLE(Type) private: static Type* m_pInst; public: static Type* GetInst() { if (!m_pInst) { m_pInst = new Type; } return m_pInst; } static void DestroyInst() { SAFE_DELETE(m_pInst); } private: Type(); ~Type();

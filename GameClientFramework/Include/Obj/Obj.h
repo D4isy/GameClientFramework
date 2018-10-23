@@ -46,10 +46,11 @@ public:
 	}
 
 protected:
-	string		m_strTag;
-	POSITION	m_tPos;
-	_SIZE		m_tSize;
-	POSITION	m_tPivot;
+	string				m_strTag;
+	POSITION			m_tPos;
+	_SIZE				m_tSize;
+	POSITION			m_tPivot;
+	class CTexture*		m_pTexture;
 
 public:
 	string GetTag() const {
@@ -85,6 +86,10 @@ public:
 		m_tSize.x = x;
 		m_tSize.y = y;
 	}
+
+public:
+	void SetTexture(class CTexture* pTexture);
+	void SetTexture(const string& strKey, const wchar_t* pFileName=NULL, const string& strPathKey = TEXTURE_PATH);
 
 public:
 	virtual bool Init() = 0;
