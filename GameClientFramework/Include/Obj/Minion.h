@@ -6,6 +6,7 @@ class CMinion :
 {
 private:
 	friend class CObj;
+	friend class CScene;
 
 private:
 	CMinion();

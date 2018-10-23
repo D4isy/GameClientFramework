@@ -9,7 +9,7 @@ CCore::CCore()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	// 메모리 릭 호출 번호를 쓰면 자동으로 Break 시킴
-	//_CrtSetBreakAlloc(242);
+	//_CrtSetBreakAlloc(258);
 }
 
 
