@@ -127,6 +127,7 @@ void CCore::Collision(float fDeltaTime)
 
 void CCore::Render(float fDeltaTime)
 {
+	// 더블 버퍼링
 	CTexture* pBackBuffer = GET_SINGLE(CResourcesManager)->GetBackBuffer();
 
 	Rectangle(pBackBuffer->GetDC(), 0, 0, m_tRS.iW, m_tRS.iH);

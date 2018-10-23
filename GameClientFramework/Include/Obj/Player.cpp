@@ -17,9 +17,10 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-	SetPos(100.f, 100.f);
+	SetPos(0.f, 0.f);
 	SetSize(140.f, 226.f);
 	SetSpeed(400.f);
+	SetPivot(0.7f, 0.5f);
 
 	SetTexture("Player", L"Pig.bmp");
 	return true;
@@ -82,6 +83,13 @@ CPlayer * CPlayer::Clone()
 void CPlayer::Fire()
 {
 	CObj* pBullet = CObj::CreateCloneObj("Bullet", "PlayerBullet", m_pLayer);
-	pBullet->SetPos(m_tPos.x + m_tSize.x, m_tPos.y + (m_tSize.y - pBullet->GetSize().y) / 2.f);
+
+	// 오른쪽 가운데를 구한다.
+	POSITION tPos;
+	tPos.x = m_tPos.x + (1.f - m_tPivot.x) * m_tSize.x;
+	tPos.y = m_tPos.y + (0.5f - m_tPivot.y) * m_tSize.y;
+
+	//pBullet->SetPos(m_tPos.x + m_tSize.x, m_tPos.y + (m_tSize.y - pBullet->GetSize().y) / 2.f);
+	pBullet->SetPos(tPos.x, tPos.y - pBullet->GetSize().y / 2.f);
 	SAFE_RELEASE(pBullet);
 }

@@ -116,7 +116,11 @@ void CObj::Collision(float fDeltaTime)
 void CObj::Render(HDC hDC, float fDeltaTime)
 {
 	if (m_pTexture) {
-		BitBlt(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y), 
+		// 좌 상단측 구하기
+		POSITION tPos = m_tPos - m_tSize * m_tPivot;
+
+		// 스크롤링 하기 위하여 m_tPos -> tPos 로 변경
+		BitBlt(hDC, static_cast<int>(tPos.x), static_cast<int>(tPos.y),
 			static_cast<int>(m_tSize.x), static_cast<int>(m_tSize.y), m_pTexture->GetDC(), 0, 0, SRCCOPY);
 	}
 }
