@@ -1,6 +1,7 @@
 #include "Core.h"
 #include "../Scene/SceneManager.h"
 #include "Timer.h"
+#include "PathManager.h"
 
 CCore* CCore::m_pInst = NULL;
 bool CCore::m_bLoop = true;
@@ -17,6 +18,7 @@ CCore::~CCore()
 {
 	ReleaseDC(m_hWnd, m_hDC);
 	DESTROY_SINGLE(CTimer);
+	DESTROY_SINGLE(CPathManager);
 	DESTROY_SINGLE(CSceneManager);
 }
 
@@ -37,6 +39,11 @@ bool CCore::Init(HINSTANCE hInst)
 
 	// 타이머 초기화
 	if (!GET_SINGLE(CTimer)->Init()) {
+		return false;
+	}
+
+	// 경로관리자 초기화
+	if (!GET_SINGLE(CPathManager)->Init()) {
 		return false;
 	}
 

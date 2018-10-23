@@ -16,6 +16,10 @@ using namespace std;
 
 #define		PI		3.141592f
 
+// Path Key
+#define ROOT_PATH		"RootPath"
+#define TEXTURE_PATH	"TexturePath"
+
 template <typename T>
 void Safe_Delete_VecList(T& p) {
 	typename T::iterator iter;

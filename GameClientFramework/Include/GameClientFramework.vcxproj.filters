@@ -43,6 +43,12 @@
     <Filter Include="Obj\MoveObj\Bullet">
       <UniqueIdentifier>{054e0c55-b2f3-4545-bea6-d545e93413eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Path">
+      <UniqueIdentifier>{43bedde8-eede-404c-bfb9-63e37765bf23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{d8df0a93-2810-4a90-8de8-db8b699c95cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="Obj\Bullet.cpp">
       <Filter>Obj\MoveObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PathManager.cpp">
+      <Filter>Core\Path</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Obj\Bullet.h">
       <Filter>Obj\MoveObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PathManager.h">
+      <Filter>Core\Path</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
