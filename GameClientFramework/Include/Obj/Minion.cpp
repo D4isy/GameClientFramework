@@ -2,7 +2,9 @@
 #include "../Core/Core.h"
 
 
-CMinion::CMinion()
+CMinion::CMinion() :
+	m_fFireTime(0.f),
+	m_fFireLimitTime(1.13f)
 {
 }
 
@@ -10,6 +12,8 @@ CMinion::CMinion(const CMinion & minion) :
 	CMoveObj(minion)
 {
 	m_eDir = minion.m_eDir;
+	m_fFireTime = minion.m_fFireTime;
+	m_fFireLimitTime = minion.m_fFireLimitTime;
 }
 
 
@@ -41,6 +45,13 @@ int CMinion::Update(float fDeltaTime)
 		m_tPos.y = 0.f;
 		m_eDir = MD_FRONT;
 	}
+
+	m_fFireTime += fDeltaTime;
+
+	if (m_fFireTime >= m_fFireLimitTime) {
+		m_fFireTime -= m_fFireLimitTime;
+		Fire();
+	}
 	return 0;
 }
 
@@ -65,4 +76,13 @@ void CMinion::Render(HDC hDC, float fDeltaTime)
 CMinion * CMinion::Clone()
 {
 	return new CMinion(*this);
+}
+
+void CMinion::Fire()
+{
+	CObj* pBullet = CObj::CreateCloneObj("Bullet", "MinionBullet", m_pLayer);
+
+	(static_cast<CMoveObj*>(pBullet))->SetAngle(PI);
+	pBullet->SetPos(m_tPos.x - pBullet->GetSize().x, m_tPos.y + (m_tSize.y - pBullet->GetSize().y) / 2.f);
+	SAFE_RELEASE(pBullet);
 }
