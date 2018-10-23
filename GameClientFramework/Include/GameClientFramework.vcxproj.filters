@@ -40,6 +40,9 @@
     <Filter Include="Obj\MoveObj\Monster">
       <UniqueIdentifier>{d2c78d0d-1baa-4302-a221-e086870d0b82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obj\MoveObj\Bullet">
+      <UniqueIdentifier>{054e0c55-b2f3-4545-bea6-d545e93413eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Core\Core.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Bullet.cpp">
+      <Filter>Obj\MoveObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="Core\Core.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Bullet.h">
+      <Filter>Obj\MoveObj\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

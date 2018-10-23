@@ -21,6 +21,8 @@ public:
 	static void EraseObj(CObj* pObj);
 	static void EraseObj(const string& strTag);
 	static void EraseObj();
+	static void ErasePrototype(const string& strTag);
+	static void ErasePrototype();
 
 protected:
 	class CScene*	m_pScene;
@@ -91,6 +93,7 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hDC, float fDeltaTime);
+	virtual CObj* Clone() = 0;
 
 public:
 	// C++ 불완전한 클래스 형식에 대한 포인터는 사용할 수 없습니다
@@ -98,6 +101,8 @@ public:
 	template <typename T>
 	static T* CreateObj(const string& strTag, class CLayer* pLayer = NULL) {
 		T* pObj = new T;
+
+		pObj->SetTag(strTag);
 
 		if (!pObj->Init()) {
 			SAFE_RELEASE(pObj);
@@ -112,5 +117,27 @@ public:
 
 		return pObj;
 	}
+
+	static CObj* CreateCloneObj(const string& strPrototypeKey, const string& strTag, class CLayer* pLayer = NULL);
+
+	template <typename T>
+	static T* CreatePrototype(const string& strTag) {
+		T* pObj = new T;
+
+		pObj->SetTag(strTag);
+
+		if (!pObj->Init()) {
+			SAFE_RELEASE(pObj);
+			return NULL;
+		}
+
+		pObj->AddRef();
+		m_mapProtoType.insert(make_pair(strTag, pObj));
+
+		return pObj;
+	}
+
+private:
+	static CObj* FindPrototype(const string& strKey);
 };
 

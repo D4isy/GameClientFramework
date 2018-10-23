@@ -70,6 +70,23 @@ void CObj::EraseObj()
 	Safe_Release_VecList(m_ObjList);
 }
 
+void CObj::ErasePrototype(const string & strTag)
+{
+	unordered_map<string, CObj*>::iterator iter = m_mapProtoType.find(strTag);
+
+	if (!iter->second) {
+		return;
+	}
+
+	SAFE_RELEASE(iter->second);
+	m_mapProtoType.erase(iter);
+}
+
+void CObj::ErasePrototype()
+{
+	Safe_Release_Map(m_mapProtoType);
+}
+
 void CObj::Input(float fDeltaTime)
 {
 }
@@ -90,4 +107,36 @@ void CObj::Collision(float fDeltaTime)
 
 void CObj::Render(HDC hDC, float fDeltaTime)
 {
+}
+
+CObj * CObj::CreateCloneObj(const string & strPrototypeKey, const string & strTag, class CLayer* pLayer)
+{
+	CObj* pProto = FindPrototype(strPrototypeKey);
+
+	if (!pProto) {
+		return NULL;
+	}
+
+	CObj* pObj = pProto->Clone();
+
+	pObj->SetTag(strTag);
+
+	if (pLayer) {
+		pLayer->AddObject(pObj);
+	}
+
+	AddObj(pObj);
+
+	return pObj;
+}
+
+CObj * CObj::FindPrototype(const string & strKey)
+{
+	unordered_map<string, CObj*>::iterator iter = m_mapProtoType.find(strKey);
+	
+	if (iter == m_mapProtoType.end()) {
+		return NULL;
+	}
+
+	return iter->second;
 }

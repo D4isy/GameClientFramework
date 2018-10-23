@@ -61,3 +61,8 @@ void CMinion::Render(HDC hDC, float fDeltaTime)
 	Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y),
 		static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
 }
+
+CMinion * CMinion::Clone()
+{
+	return new CMinion(*this);
+}
