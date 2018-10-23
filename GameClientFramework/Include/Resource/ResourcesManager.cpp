@@ -3,10 +3,19 @@
 
 DEFINITION_SINGLE(CResourcesManager)
 
+CTexture * CResourcesManager::GetBackBuffer() const
+{
+	m_pBackBuffer->AddRef();
+	return m_pBackBuffer;
+}
+
 bool CResourcesManager::Init(HINSTANCE hInst, HDC hDC)
 {
 	m_hInst = hInst;
 	m_hDC = hDC;
+
+	// 백버퍼를 불러오기
+	m_pBackBuffer = LoadTexture("BackBuffer", L"BackBuffer.bmp");
 	return true;
 }
 
@@ -52,5 +61,6 @@ CResourcesManager::CResourcesManager()
 
 CResourcesManager::~CResourcesManager()
 {
+	SAFE_RELEASE(m_pBackBuffer);
 	Safe_Release_Map(m_mapTexture);
 }
