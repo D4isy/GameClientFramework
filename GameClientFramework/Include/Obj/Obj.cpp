@@ -3,6 +3,7 @@
 #include "../Scene/Scene.h"
 #include "../Resource/ResourcesManager.h"
 #include "../Resource/Texture.h"
+#include "../Core/Camera.h"
 
 list<CObj*> CObj::m_ObjList;
 
@@ -118,6 +119,7 @@ void CObj::Render(HDC hDC, float fDeltaTime)
 	if (m_pTexture) {
 		// 좌 상단측 구하기
 		POSITION tPos = m_tPos - m_tSize * m_tPivot;
+		tPos -= GET_SINGLE(CCamera)->GetPos();
 
 		// 스크롤링 하기 위하여 m_tPos -> tPos 로 변경
 		BitBlt(hDC, static_cast<int>(tPos.x), static_cast<int>(tPos.y),

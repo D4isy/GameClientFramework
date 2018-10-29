@@ -17,10 +17,10 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
-	SetPos(0.f, 0.f);
+	SetPos(70.f, 113.f);
 	SetSize(140.f, 226.f);
 	SetSpeed(400.f);
-	SetPivot(0.7f, 0.5f);
+	SetPivot(0.5f, 0.5f);
 
 	SetTexture("Player", L"Pig.bmp");
 	return true;

@@ -49,6 +49,12 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{d8df0a93-2810-4a90-8de8-db8b699c95cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obj\StaticObj\Stage">
+      <UniqueIdentifier>{c1b6437a-93af-49e5-b4fa-a6a9c574d7cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Camera">
+      <UniqueIdentifier>{1f609ce6-bf80-4594-8567-b6cf704ea981}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,12 @@
     </ClCompile>
     <ClCompile Include="Resource\ResourcesManager.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Stage.cpp">
+      <Filter>Obj\StaticObj\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Core\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="Resource\ResourcesManager.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Stage.h">
+      <Filter>Obj\StaticObj\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Core\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
