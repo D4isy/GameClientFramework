@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../Core/Timer.h"
 #include "../Resource/Texture.h"
+#include "../Core/Input.h"
 
 CPlayer::CPlayer()
 {
@@ -32,32 +33,36 @@ void CPlayer::Input(float fDeltaTime)
 {
 	CMoveObj::Input(fDeltaTime);
 
-	if (GetAsyncKeyState('W') & 0x8000) {
+	if (KEYPRESS("MoveFront")) {
 		MoveYFromSpeed(fDeltaTime, MD_BACK);
 	}
 
-	if (GetAsyncKeyState('S') & 0x8000) {
+	if (KEYPRESS("MoveBack")) {
 		MoveYFromSpeed(fDeltaTime, MD_FRONT);
 	}
 
-	if (GetAsyncKeyState('A') & 0x8000) {
+	if (KEYPRESS("MoveLeft")) {
 		MoveXFromSpeed(fDeltaTime, MD_BACK);
 	}
 
-	if (GetAsyncKeyState('D') & 0x8000) {
+	if (KEYPRESS("MoveRight")) {
 		MoveXFromSpeed(fDeltaTime, MD_FRONT);
 	}
 
-	if (GetAsyncKeyState(VK_F2) & 0x8000) {
+	if (KEYPRESS("SpeedDown")) {
 		GET_SINGLE(CTimer)->SetTimeScale(max(GET_SINGLE(CTimer)->GetTimeScale() - 0.001f, 0));
 	}
 
-	if (GetAsyncKeyState(VK_F1) & 0x8000) {
+	if (KEYPRESS("SpeedUp")) {
 		GET_SINGLE(CTimer)->SetTimeScale(min(GET_SINGLE(CTimer)->GetTimeScale() + 0.001f, 1.f));
 	}
 
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
+	if (KEYDOWN("Fire")) {
 		Fire();
+	}
+
+	if (KEYDOWN("Skill1")) {
+		MessageBox(NULL, TEXT("Skill1"), TEXT("Skill1"), MB_OK);
 	}
 }
 

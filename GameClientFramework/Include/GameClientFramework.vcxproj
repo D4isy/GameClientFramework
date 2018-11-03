@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Core.cpp" />
+    <ClCompile Include="Core\Input.cpp" />
     <ClCompile Include="Core\PathManager.cpp" />
     <ClCompile Include="Core\Ref.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
@@ -172,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Core\Input.h" />
     <ClInclude Include="Core\PathManager.h" />
     <ClInclude Include="Core\Ref.h" />
     <ClInclude Include="Core\Timer.h" />

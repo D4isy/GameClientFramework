@@ -6,6 +6,8 @@
 #include <vector>
 #include <unordered_map>
 #include <crtdbg.h>
+#include <typeinfo>
+#include <string>
 
 using namespace std;
 
