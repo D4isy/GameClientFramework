@@ -12,6 +12,18 @@ private:
 	CPlayer(const CPlayer& player);
 	~CPlayer();
 
+private:
+	bool	m_bFire;
+
+public:
+	bool GetFire() const {
+		return m_bFire;
+	}
+
+	void SetFire(bool bFire) {
+		m_bFire = bFire;
+	}
+
 public:
 	virtual bool Init();
 	virtual void Input(float fDeltaTime);

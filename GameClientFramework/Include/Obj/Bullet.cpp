@@ -1,5 +1,7 @@
 #include "Bullet.h"
+#include "../Core/Camera.h"
 #include "../Resource/Texture.h"
+#include "Player.h"
 
 
 CBullet::CBullet() :
@@ -40,6 +42,12 @@ int CBullet::Update(float fDeltaTime)
 	m_fDist += GetSpeed() * fDeltaTime;
 
 	if (m_fDist >= m_fLimitDist) {
+		if (static_cast<CBullet*>(GET_SINGLE(CCamera)->GetTarget()) == this) {
+			CPlayer* pPlayer = static_cast<CPlayer*>(CObj::FindObject("Player"));
+			GET_SINGLE(CCamera)->SetTarget(pPlayer);
+			pPlayer->SetFire(false);
+			SAFE_RELEASE(pPlayer);
+		}
 		Die();
 	}
 	return 0;

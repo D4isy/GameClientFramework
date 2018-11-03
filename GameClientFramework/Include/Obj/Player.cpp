@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Core/Timer.h"
+#include "../Core/Camera.h"
 #include "../Resource/Texture.h"
 
 CPlayer::CPlayer()
@@ -17,6 +18,7 @@ CPlayer::~CPlayer()
 
 bool CPlayer::Init()
 {
+	m_bFire = false;
 	SetPos(70.f, 113.f);
 	SetSize(140.f, 226.f);
 	SetSpeed(400.f);
@@ -56,7 +58,7 @@ void CPlayer::Input(float fDeltaTime)
 		GET_SINGLE(CTimer)->SetTimeScale(min(GET_SINGLE(CTimer)->GetTimeScale() + 0.001f, 1.f));
 	}
 
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
+	if (!m_bFire && GetAsyncKeyState(VK_SPACE) & 0x8000) {
 		Fire();
 	}
 }
@@ -92,6 +94,7 @@ CPlayer * CPlayer::Clone()
 
 void CPlayer::Fire()
 {
+	m_bFire = true;
 	CObj* pBullet = CObj::CreateCloneObj("Bullet", "PlayerBullet", m_pLayer);
 
 	// 오른쪽 가운데를 구한다.
@@ -101,5 +104,9 @@ void CPlayer::Fire()
 
 	//pBullet->SetPos(m_tPos.x + m_tSize.x, m_tPos.y + (m_tSize.y - pBullet->GetSize().y) / 2.f);
 	pBullet->SetPos(tPos);
+
+	// 총알 쏠 때 카메라 설정
+	GET_SINGLE(CCamera)->SetTarget(pBullet);
+
 	SAFE_RELEASE(pBullet);
 }

@@ -17,6 +17,9 @@ public:
 	}
 
 public:
+	class CObj* GetTarget() const {
+		return m_pTarget;
+	}
 	void SetTarget(class CObj* pObj);
 
 	void SetPivot(const POSITION& tPivot) {
