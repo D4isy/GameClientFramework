@@ -10,6 +10,11 @@ private:
 	class CScene*	m_pNextScene;
 
 public:
+	class CScene* GetScene() const {
+		return m_pScene;
+	}
+
+public:
 	bool Init();
 	void Input(float fDeltaTime);
 	int Update(float fDeltaTime);

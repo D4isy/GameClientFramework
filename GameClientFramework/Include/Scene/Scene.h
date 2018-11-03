@@ -10,6 +10,13 @@ protected:
 protected:
 	CScene();
 	virtual ~CScene() = 0;
+	
+private:
+	static unordered_map<string, class CObj*> m_mapProtoType;
+
+public:
+	static void ErasePrototype(const string& strTag);
+	static void ErasePrototype();
 
 protected:
 	list<class CLayer*> m_LayerList;
@@ -28,5 +35,25 @@ public:
 
 public:
 	static bool LayerSort(class CLayer* pL1, class CLayer* pL2);
+
+public:
+	template <typename T>
+	static T* CreatePrototype(const string& strTag) {
+		T* pObj = new T;
+
+		pObj->SetTag(strTag);
+
+		if (!pObj->Init()) {
+			SAFE_RELEASE(pObj);
+			return NULL;
+		}
+
+		pObj->AddRef();
+		m_mapProtoType.insert(make_pair(strTag, pObj));
+
+		return pObj;
+	}
+
+	static CObj* FindPrototype(const string& strKey);
 };
 

@@ -7,13 +7,15 @@ class CObj :
 	public CRef
 {
 protected:
+	friend class CScene;
+
+protected:
 	CObj();
 	CObj(const CObj& obj);
 	virtual ~CObj();
 
 private:
 	static list<CObj*>	m_ObjList;
-	static unordered_map<string, CObj*> m_mapProtoType;
 
 public:
 	static void AddObj(CObj* pObj);
@@ -44,12 +46,33 @@ public:
 	}
 
 protected:
-	string		m_strTag;
-	POSITION	m_tPos;
-	_SIZE		m_tSize;
-	POSITION	m_tPivot;
+	string				m_strTag;
+	POSITION			m_tPos;
+	_SIZE				m_tSize;
+	POSITION			m_tPivot;
+	class CTexture*		m_pTexture;
 
 public:
+	float GetLeft() const {
+		return m_tPos.x - m_tSize.x * m_tPivot.x;
+	}
+
+	float GetRight() const {
+		return GetLeft() + m_tSize.x;
+	}
+
+	float GetTop() const {
+		return m_tPos.y - m_tSize.y * m_tPivot.y;
+	}
+
+	float GetBottom() const {
+		return GetTop() + m_tSize.y;
+	}
+
+	POSITION GetCenter() const {
+		return POSITION(GetLeft() + m_tSize.x / 2.f, GetTop() + m_tSize.y / 2.f);
+	}
+
 	string GetTag() const {
 		return m_strTag;
 	}
@@ -61,6 +84,11 @@ public:
 	_SIZE GetSize() const {
 		return m_tSize;
 	}
+
+	POSITION GetPivot() const {
+		return m_tPivot;
+	}
+
 public:
 	void SetTag(const string& strTag) {
 		m_strTag = strTag;
@@ -84,6 +112,19 @@ public:
 		m_tSize.y = y;
 	}
 
+	void SetPivot(const POSITION& tPos) {
+		m_tPivot = tPos;
+	}
+
+	void SetPivot(float x, float y) {
+		m_tPivot.x = x;
+		m_tPivot.y = y;
+	}
+
+public:
+	void SetTexture(class CTexture* pTexture);
+	void SetTexture(const string& strKey, const wchar_t* pFileName=NULL, const string& strPathKey = TEXTURE_PATH);
+
 public:
 	virtual bool Init() = 0;
 	virtual void Input(float fDeltaTime);
@@ -91,6 +132,7 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hDC, float fDeltaTime);
+	virtual CObj* Clone() = 0;
 
 public:
 	// C++ 불완전한 클래스 형식에 대한 포인터는 사용할 수 없습니다
@@ -98,6 +140,8 @@ public:
 	template <typename T>
 	static T* CreateObj(const string& strTag, class CLayer* pLayer = NULL) {
 		T* pObj = new T;
+
+		pObj->SetTag(strTag);
 
 		if (!pObj->Init()) {
 			SAFE_RELEASE(pObj);
@@ -112,5 +156,7 @@ public:
 
 		return pObj;
 	}
+
+	static CObj* CreateCloneObj(const string& strPrototypeKey, const string& strTag, class CLayer* pLayer = NULL);
 };
 

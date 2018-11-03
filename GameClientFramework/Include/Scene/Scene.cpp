@@ -1,17 +1,39 @@
 #include "Scene.h"
 #include "Layer.h"
+#include "../Obj/Obj.h"
+
+unordered_map<string, CObj*> CScene::m_mapProtoType;
 
 CScene::CScene()
 {
-	CLayer* pLayer = CreateLayer("Default");
-	pLayer = CreateLayer("UI", INT_MAX);
+	CLayer* pLayer = CreateLayer("UI", INT_MAX);
+	pLayer = CreateLayer("Default", 1);
+	pLayer = CreateLayer("Stage");
 }
 
 
 CScene::~CScene()
 {
+	ErasePrototype();
 	// 접근 불가는 CLayer 의 ~CLayer() 이 private 면 접근 불가
 	Safe_Delete_VecList(m_LayerList);
+}
+
+void CScene::ErasePrototype(const string & strTag)
+{
+	unordered_map<string, CObj*>::iterator iter = m_mapProtoType.find(strTag);
+
+	if (!iter->second) {
+		return;
+	}
+
+	SAFE_RELEASE(iter->second);
+	m_mapProtoType.erase(iter);
+}
+
+void CScene::ErasePrototype()
+{
+	Safe_Release_Map(m_mapProtoType);
 }
 
 CLayer * CScene::CreateLayer(const string & strTag, int iZOrder)
@@ -169,3 +191,15 @@ bool CScene::LayerSort(CLayer * pL1, CLayer * pL2)
 {
 	return pL1->GetZOrder() < pL2->GetZOrder();
 }
+
+CObj * CScene::FindPrototype(const string & strKey)
+{
+	unordered_map<string, CObj*>::iterator iter = m_mapProtoType.find(strKey);
+
+	if (iter == m_mapProtoType.end()) {
+		return NULL;
+	}
+
+	return iter->second;
+}
+

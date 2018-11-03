@@ -1,8 +1,11 @@
 #include "Minion.h"
+#include "../Resource/Texture.h"
 #include "../Core/Core.h"
 
 
-CMinion::CMinion()
+CMinion::CMinion() :
+	m_fFireTime(0.f),
+	m_fFireLimitTime(1.13f)
 {
 }
 
@@ -10,6 +13,8 @@ CMinion::CMinion(const CMinion & minion) :
 	CMoveObj(minion)
 {
 	m_eDir = minion.m_eDir;
+	m_fFireTime = minion.m_fFireTime;
+	m_fFireLimitTime = minion.m_fFireLimitTime;
 }
 
 
@@ -20,9 +25,13 @@ CMinion::~CMinion()
 bool CMinion::Init()
 {
 	SetPos(800.f, 100.f);
-	SetSize(100.f, 100.f);
+	SetSize(50.f, 71.f);
 	SetSpeed(300.f);
+	SetPivot(0.5f, 0.5f);
 
+	SetTexture("Minion", L"enemy_01.bmp");
+
+	m_pTexture->SetColorKey(0, 248, 0);
 	m_eDir = MD_FRONT;
 	return true;
 }
@@ -41,6 +50,13 @@ int CMinion::Update(float fDeltaTime)
 		m_tPos.y = 0.f;
 		m_eDir = MD_FRONT;
 	}
+
+	m_fFireTime += fDeltaTime;
+
+	if (m_fFireTime >= m_fFireLimitTime) {
+		m_fFireTime -= m_fFireLimitTime;
+		Fire();
+	}
 	return 0;
 }
 
@@ -58,6 +74,24 @@ void CMinion::Collision(float fDeltaTime)
 void CMinion::Render(HDC hDC, float fDeltaTime)
 {
 	CMoveObj::Render(hDC, fDeltaTime);
-	Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y),
-		static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
+	//Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y),
+	//	static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
+}
+
+CMinion * CMinion::Clone()
+{
+	return new CMinion(*this);
+}
+
+void CMinion::Fire()
+{
+	CObj* pBullet = CObj::CreateCloneObj("Bullet", "MinionBullet", m_pLayer);
+
+	(static_cast<CMoveObj*>(pBullet))->SetAngle(PI);
+
+	float x = GetLeft() - (pBullet->GetSize().x * (1.f - pBullet->GetPivot().x));
+	float y = GetCenter().y;
+
+	pBullet->SetPos(x, y);
+	SAFE_RELEASE(pBullet);
 }

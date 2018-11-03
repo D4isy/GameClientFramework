@@ -1,6 +1,11 @@
 #include "Core.h"
 #include "../Scene/SceneManager.h"
 #include "Timer.h"
+#include "PathManager.h"
+#include "../Resource/ResourcesManager.h"
+#include "../Resource/Texture.h"
+#include "Camera.h"
+#include "Input.h"
 
 CCore* CCore::m_pInst = NULL;
 bool CCore::m_bLoop = true;
@@ -9,15 +14,20 @@ CCore::CCore()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	// 메모리 릭 호출 번호를 쓰면 자동으로 Break 시킴
-	//_CrtSetBreakAlloc(242);
+	//_CrtSetBreakAlloc(258);
 }
 
 
 CCore::~CCore()
 {
-	ReleaseDC(m_hWnd, m_hDC);
-	DESTROY_SINGLE(CTimer);
 	DESTROY_SINGLE(CSceneManager);
+	DESTROY_SINGLE(CInput);
+	DESTROY_SINGLE(CCamera);
+	DESTROY_SINGLE(CResourcesManager);
+	DESTROY_SINGLE(CPathManager);
+	DESTROY_SINGLE(CTimer);
+
+	ReleaseDC(m_hWnd, m_hDC);
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -37,6 +47,27 @@ bool CCore::Init(HINSTANCE hInst)
 
 	// 타이머 초기화
 	if (!GET_SINGLE(CTimer)->Init()) {
+		return false;
+	}
+
+	// 경로관리자 초기화
+	if (!GET_SINGLE(CPathManager)->Init()) {
+		return false;
+	}
+
+	// 입력관리자 초기화
+	if (!GET_SINGLE(CInput)->Init(m_hWnd)) {
+		return false;
+	}
+
+	// 리소스 관리자 초기화
+	if (!GET_SINGLE(CResourcesManager)->Init(hInst, m_hDC)) {
+		return false;
+	}
+
+	// 카메라 관리자 초기화
+	// (1920, 1080) 은 배경화면 크기
+	if (!GET_SINGLE(CCamera)->Init(POSITION(0.f, 0.f), m_tRS, RESOLUTION(1920, 1080))) {
 		return false;
 	}
 
@@ -89,12 +120,16 @@ void CCore::Logic()
 
 void CCore::Input(float fDeltaTime)
 {
+	GET_SINGLE(CInput)->Update(fDeltaTime);
+
 	GET_SINGLE(CSceneManager)->Input(fDeltaTime);
+	GET_SINGLE(CCamera)->Input(fDeltaTime);
 }
 
 int CCore::Update(float fDeltaTime)
 {
 	GET_SINGLE(CSceneManager)->Update(fDeltaTime);
+	GET_SINGLE(CCamera)->Update(fDeltaTime);
 	return 0;
 }
 
@@ -111,7 +146,15 @@ void CCore::Collision(float fDeltaTime)
 
 void CCore::Render(float fDeltaTime)
 {
-	GET_SINGLE(CSceneManager)->Render(m_hDC, fDeltaTime);
+	// 더블 버퍼링
+	CTexture* pBackBuffer = GET_SINGLE(CResourcesManager)->GetBackBuffer();
+
+	Rectangle(pBackBuffer->GetDC(), 0, 0, m_tRS.iW, m_tRS.iH);
+	GET_SINGLE(CSceneManager)->Render(pBackBuffer->GetDC(), fDeltaTime);
+
+	BitBlt(m_hDC, 0, 0, m_tRS.iW, m_tRS.iH, pBackBuffer->GetDC(), 0, 0, SRCCOPY);
+
+	SAFE_RELEASE(pBackBuffer);
 }
 
 ATOM CCore::MyRegisterClass()

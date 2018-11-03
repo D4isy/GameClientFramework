@@ -149,33 +149,47 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Core.cpp" />
+    <ClCompile Include="Core\Input.cpp" />
+    <ClCompile Include="Core\PathManager.cpp" />
     <ClCompile Include="Core\Ref.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Obj\Bullet.cpp" />
     <ClCompile Include="Obj\Minion.cpp" />
     <ClCompile Include="Obj\MoveObj.cpp" />
     <ClCompile Include="Obj\Obj.cpp" />
     <ClCompile Include="Obj\Player.cpp" />
+    <ClCompile Include="Obj\Stage.cpp" />
     <ClCompile Include="Obj\StaticObj.cpp" />
+    <ClCompile Include="Resource\ResourcesManager.cpp" />
+    <ClCompile Include="Resource\Texture.cpp" />
     <ClCompile Include="Scene\InGameScene.cpp" />
     <ClCompile Include="Scene\Layer.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\Core.h" />
+    <ClInclude Include="Core\Input.h" />
+    <ClInclude Include="Core\PathManager.h" />
     <ClInclude Include="Core\Ref.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="Obj\Bullet.h" />
     <ClInclude Include="Obj\Minion.h" />
     <ClInclude Include="Obj\MoveObj.h" />
     <ClInclude Include="Obj\Obj.h" />
     <ClInclude Include="Obj\Player.h" />
+    <ClInclude Include="Obj\Stage.h" />
     <ClInclude Include="Obj\StaticObj.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Resource\ResourcesManager.h" />
+    <ClInclude Include="Resource\Texture.h" />
     <ClInclude Include="Scene\InGameScene.h" />
     <ClInclude Include="Scene\Layer.h" />
     <ClInclude Include="Scene\Scene.h" />

@@ -40,6 +40,24 @@
     <Filter Include="Obj\MoveObj\Monster">
       <UniqueIdentifier>{d2c78d0d-1baa-4302-a221-e086870d0b82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Obj\MoveObj\Bullet">
+      <UniqueIdentifier>{054e0c55-b2f3-4545-bea6-d545e93413eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Path">
+      <UniqueIdentifier>{43bedde8-eede-404c-bfb9-63e37765bf23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{d8df0a93-2810-4a90-8de8-db8b699c95cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\StaticObj\Stage">
+      <UniqueIdentifier>{c1b6437a-93af-49e5-b4fa-a6a9c574d7cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Camera">
+      <UniqueIdentifier>{1f609ce6-bf80-4594-8567-b6cf704ea981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Input">
+      <UniqueIdentifier>{899a04e7-ee15-49e5-8aca-0b26d85080db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +98,27 @@
     </ClCompile>
     <ClCompile Include="Core\Core.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Bullet.cpp">
+      <Filter>Obj\MoveObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PathManager.cpp">
+      <Filter>Core\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Texture.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\ResourcesManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj\Stage.cpp">
+      <Filter>Obj\StaticObj\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Core\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input.cpp">
+      <Filter>Core\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +172,27 @@
     </ClInclude>
     <ClInclude Include="Core\Core.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Bullet.h">
+      <Filter>Obj\MoveObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PathManager.h">
+      <Filter>Core\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\ResourcesManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj\Stage.h">
+      <Filter>Obj\StaticObj\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Core\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input.h">
+      <Filter>Core\Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

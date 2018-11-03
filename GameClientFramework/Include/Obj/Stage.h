@@ -1,16 +1,18 @@
 #pragma once
-#include "MoveObj.h"
-class CPlayer :
-	public CMoveObj
+
+#include "StaticObj.h"
+
+class CStage :
+	public CStaticObj
 {
 private:
 	friend class CObj;
 	friend class CScene;
 
 private:
-	CPlayer();
-	CPlayer(const CPlayer& player);
-	~CPlayer();
+	CStage();
+	CStage(const CStage& stage);
+	~CStage();
 
 public:
 	virtual bool Init();
@@ -19,9 +21,6 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hDC, float fDeltaTime);
-	virtual CPlayer* Clone();
-
-private:
-	void Fire();
+	virtual CStage* Clone();
 };
 
