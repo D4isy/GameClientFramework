@@ -33,7 +33,7 @@ bool CInGameScene::Init()
 
 	// 총알 프로토타입을 만들어준다.
 	CBullet* pBullet = CScene::CreatePrototype<CBullet>("Bullet");
-	pBullet->SetSize(50.f, 50.f);
+	pBullet->SetSize(64.f, 64.f);
 	SAFE_RELEASE(pBullet);
 
 	CLayer* pStageLayer = FindLayer("Stage");

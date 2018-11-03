@@ -3,7 +3,9 @@
 
 
 CTexture::CTexture() :
-	m_hMemDC(NULL)
+	m_hMemDC(NULL),
+	m_bColorKeyEnable(false), 
+	m_ColorKey(RGB(255, 0, 255))
 {
 }
 
@@ -18,6 +20,18 @@ CTexture::~CTexture()
 
 	// DC를 지워준다.
 	DeleteDC(m_hMemDC);
+}
+
+void CTexture::SetColorKey(unsigned char r, unsigned char g, unsigned char b)
+{
+	m_ColorKey = RGB(r, g, b);
+	m_bColorKeyEnable = true;
+}
+
+void CTexture::SetColorKey(COLORREF colorKey)
+{
+	m_ColorKey = colorKey;
+	m_bColorKeyEnable = true;
 }
 
 bool CTexture::LoadTexture(HINSTANCE hInst, HDC hDC, const string & strKey, const wchar_t * pFileName, const string & strPathKey)

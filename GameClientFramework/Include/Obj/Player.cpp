@@ -1,6 +1,6 @@
 #include "Player.h"
-
-
+#include "../Core/Timer.h"
+#include "../Resource/Texture.h"
 
 CPlayer::CPlayer()
 {
@@ -23,6 +23,8 @@ bool CPlayer::Init()
 	SetPivot(0.5f, 0.5f);
 
 	SetTexture("Player", L"Pig.bmp");
+
+	m_pTexture->SetColorKey(0, 248, 0);
 	return true;
 }
 
@@ -44,6 +46,14 @@ void CPlayer::Input(float fDeltaTime)
 
 	if (GetAsyncKeyState('D') & 0x8000) {
 		MoveXFromSpeed(fDeltaTime, MD_FRONT);
+	}
+
+	if (GetAsyncKeyState(VK_F2) & 0x8000) {
+		GET_SINGLE(CTimer)->SetTimeScale(max(GET_SINGLE(CTimer)->GetTimeScale() - 0.001f, 0));
+	}
+
+	if (GetAsyncKeyState(VK_F1) & 0x8000) {
+		GET_SINGLE(CTimer)->SetTimeScale(min(GET_SINGLE(CTimer)->GetTimeScale() + 0.001f, 1.f));
 	}
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000) {
@@ -86,10 +96,10 @@ void CPlayer::Fire()
 
 	// 오른쪽 가운데를 구한다.
 	POSITION tPos;
-	tPos.x = m_tPos.x + (1.f - m_tPivot.x) * m_tSize.x;
-	tPos.y = m_tPos.y + (0.5f - m_tPivot.y) * m_tSize.y;
+	tPos.x = GetRight() + pBullet->GetSize().x * pBullet->GetPivot().x;
+	tPos.y = GetCenter().y;
 
 	//pBullet->SetPos(m_tPos.x + m_tSize.x, m_tPos.y + (m_tSize.y - pBullet->GetSize().y) / 2.f);
-	pBullet->SetPos(tPos.x, tPos.y - pBullet->GetSize().y / 2.f);
+	pBullet->SetPos(tPos);
 	SAFE_RELEASE(pBullet);
 }
