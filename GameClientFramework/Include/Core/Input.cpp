@@ -34,14 +34,23 @@ void CInput::Update(float fDeltaTime)
 
 		if (iPushCount == iter->second->vecKey.size()) {
 			// 키 입력이 들어왔을 때
+			//if (!iter->second->bDown && !iter->second->bPress) {
+			//	// 처음 눌렀음
+			//	iter->second->bDown = true;
+			//}
+			//else if (iter->second->bDown && !iter->second->bPress) {
+			//	// 누르는 중
+			//	iter->second->bDown = false;
+			//	iter->second->bPress = true;
+			//}
 			if (!iter->second->bDown && !iter->second->bPress) {
 				// 처음 눌렀음
 				iter->second->bDown = true;
+				iter->second->bPress = true;
 			}
-			else if (iter->second->bDown && !iter->second->bPress) {
+			else if (iter->second->bDown) {
 				// 누르는 중
 				iter->second->bDown = false;
-				iter->second->bPress = true;
 			}
 		}
 		else {
