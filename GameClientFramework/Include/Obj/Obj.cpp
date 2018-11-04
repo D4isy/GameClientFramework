@@ -4,6 +4,7 @@
 #include "../Resource/ResourcesManager.h"
 #include "../Resource/Texture.h"
 #include "../Core/Camera.h"
+#include "../Collider/Collider.h"
 
 list<CObj*> CObj::m_ObjList;
 
@@ -19,11 +20,25 @@ CObj::CObj(const CObj & obj)
 	if (m_pTexture) {
 		m_pTexture->AddRef();
 	}
+
+	m_ColliderList.clear();
+
+	list<CCollider*>::const_iterator iter;
+	list<CCollider*>::const_iterator iterEnd = obj.m_ColliderList.end();
+
+	for (iter = obj.m_ColliderList.begin(); iter != iterEnd; iter++) {
+		CCollider* pColl = (*iter)->Clone();
+
+		pColl->SetObj(this);
+
+		m_ColliderList.push_back(pColl);
+	}
 }
 
 
 CObj::~CObj()
 {
+	Safe_Release_VecList(m_ColliderList);
 	SAFE_RELEASE(m_pTexture);
 }
 
@@ -102,11 +117,49 @@ void CObj::Input(float fDeltaTime)
 
 int CObj::Update(float fDeltaTime)
 {
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd;) {
+		if (!(*iter)->GetEnable()) {
+			++iter;
+			continue;
+		}
+		(*iter)->Update(fDeltaTime);
+
+		if (!(*iter)->GetLife()) {
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else {
+			++iter;
+		}
+	}
 	return 0;
 }
 
 int CObj::LateUpdate(float fDeltaTime)
 {
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd;) {
+		if (!(*iter)->GetEnable()) {
+			++iter;
+			continue;
+		}
+		(*iter)->LateUpdate(fDeltaTime);
+
+		if (!(*iter)->GetLife()) {
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else {
+			++iter;
+		}
+	}
 	return 0;
 }
 
@@ -130,6 +183,27 @@ void CObj::Render(HDC hDC, float fDeltaTime)
 			// 스크롤링 하기 위하여 m_tPos -> tPos 로 변경
 			BitBlt(hDC, static_cast<int>(tPos.x), static_cast<int>(tPos.y),
 				static_cast<int>(m_tSize.x), static_cast<int>(m_tSize.y), m_pTexture->GetDC(), 0, 0, SRCCOPY);
+		}
+	}
+
+	list<CCollider*>::iterator iter;
+	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+	for (iter = m_ColliderList.begin(); iter != iterEnd;) {
+		if (!(*iter)->GetEnable()) {
+			++iter;
+			continue;
+		}
+
+		(*iter)->Render(hDC, fDeltaTime);
+
+		if (!(*iter)->GetLife()) {
+			SAFE_RELEASE((*iter));
+			iter = m_ColliderList.erase(iter);
+			iterEnd = m_ColliderList.end();
+		}
+		else {
+			++iter;
 		}
 	}
 }

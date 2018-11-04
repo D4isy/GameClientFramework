@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include "../Obj/Obj.h"
+#include "../Collider/CollisionManager.h"
 
 
 CLayer::CLayer() :
@@ -131,6 +132,9 @@ void CLayer::Collision(float fDeltaTime)
 			iterEnd = m_ObjList.end();
 		}
 		else {
+			// 모든 몬스터 다 넣기
+			GET_SINGLE(CCollisionManager)->AddObject(*iter);
+
 			++iter;
 		}
 	}

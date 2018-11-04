@@ -1,6 +1,6 @@
 #include "Bullet.h"
 #include "../Resource/Texture.h"
-
+#include "../Collider/ColliderRect.h"
 
 CBullet::CBullet() :
 	m_fDist(0.f),
@@ -28,6 +28,13 @@ bool CBullet::Init()
 	SetTexture("Bullet", L"Pistol.bmp");
 
 	m_pTexture->SetColorKey(0, 248, 0);
+
+
+	CColliderRect* pRC = AddCollider<CColliderRect>("Bullet");
+
+	pRC->SetRect(-32.f, -32.f, 32.f, 32.f);
+
+	SAFE_RELEASE(pRC);
 	return true;
 }
 

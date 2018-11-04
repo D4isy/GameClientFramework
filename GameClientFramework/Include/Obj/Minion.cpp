@@ -1,7 +1,7 @@
 #include "Minion.h"
 #include "../Resource/Texture.h"
 #include "../Core/Core.h"
-
+#include "../Collider/ColliderRect.h"
 
 CMinion::CMinion() :
 	m_fFireTime(0.f),
@@ -33,6 +33,13 @@ bool CMinion::Init()
 
 	m_pTexture->SetColorKey(0, 248, 0);
 	m_eDir = MD_FRONT;
+
+	CColliderRect* pRC = AddCollider<CColliderRect>("Minion");
+
+	pRC->SetRect(-25.f, -35.5f, 25.f, 35.5f);
+	pRC->AddCollisionFunction(CS_ENTER, this, &CMinion::CollisionBullet);
+
+	SAFE_RELEASE(pRC);
 	return true;
 }
 
@@ -81,6 +88,11 @@ void CMinion::Render(HDC hDC, float fDeltaTime)
 CMinion * CMinion::Clone()
 {
 	return new CMinion(*this);
+}
+
+void CMinion::CollisionBullet(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
+{
+	MessageBox(NULL, TEXT("충돌"), TEXT("충돌"), MB_OK);
 }
 
 void CMinion::Fire()

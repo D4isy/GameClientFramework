@@ -46,11 +46,39 @@ public:
 	}
 
 protected:
-	string				m_strTag;
-	POSITION			m_tPos;
-	_SIZE				m_tSize;
-	POSITION			m_tPivot;
-	class CTexture*		m_pTexture;
+	string					m_strTag;
+	POSITION				m_tPos;
+	_SIZE					m_tSize;
+	POSITION				m_tPivot;
+	class CTexture*			m_pTexture;
+	list<class CCollider*>	m_ColliderList;
+
+public:
+	const list<class CCollider*>* GetColliderList() const {
+		return &m_ColliderList;
+	}
+
+public:
+	template <typename T>
+	T* AddCollider(const string& strTag) {
+		T* pCollider = new T;
+
+		pCollider->SetObj(this);
+
+		if (!pCollider->Init()) {
+			SAFE_RELEASE(pCollider);
+			return NULL;
+		}
+
+		pCollider->AddRef();
+		m_ColliderList.push_back(pCollider);
+
+		return pCollider;
+	}
+
+	bool CheckCollider() {
+		return !m_ColliderList.empty();
+	}
 
 public:
 	float GetLeft() const {

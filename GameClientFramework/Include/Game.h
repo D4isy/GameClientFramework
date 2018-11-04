@@ -8,6 +8,7 @@
 #include <crtdbg.h>
 #include <typeinfo>
 #include <string>
+#include <functional>
 
 using namespace std;
 
