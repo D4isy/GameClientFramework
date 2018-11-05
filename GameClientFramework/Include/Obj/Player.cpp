@@ -119,7 +119,10 @@ CPlayer * CPlayer::Clone()
 
 void CPlayer::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 {
-	m_iHP -= 5;
+	if (pSrc->GetTag().compare("TracePlayer") != 0 &&
+		pDest->GetTag().compare("TracePlayer") != 0) {
+		m_iHP -= 5;
+	}
 }
 
 void CPlayer::Fire()

@@ -17,6 +17,7 @@ private:
 	MOVE_DIR	m_eDir;
 	float		m_fFireTime;
 	float		m_fFireLimitTime;
+	class CObj*	m_TraceObj;
 
 public:
 	virtual bool Init();
@@ -28,6 +29,7 @@ public:
 
 public:
 	void CollisionBullet(class CCollider* pSrc, class CCollider* pDest, float fDeltaTime);
+	void HitTrace(class CCollider* pSrc, class CCollider* pDest, float fDeltaTime);
 
 private:
 	void Fire();

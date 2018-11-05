@@ -24,12 +24,12 @@ bool CInGameScene::Init()
 
 	CLayer* pLayer = FindLayer("Default");
 
+	CMinion* pMinion = CObj::CreateObj<CMinion>("Minion", pLayer);
+	SAFE_RELEASE(pMinion);
+
 	CPlayer* pPlayer = CObj::CreateObj<CPlayer>("Player", pLayer);
 	GET_SINGLE(CCamera)->SetTarget(pPlayer);
 	SAFE_RELEASE(pPlayer);
-
-	CMinion* pMinion = CObj::CreateObj<CMinion>("Minion", pLayer);
-	SAFE_RELEASE(pMinion);
 
 	// 총알 프로토타입을 만들어준다.
 	CBullet* pBullet = CScene::CreatePrototype<CBullet>("Bullet");

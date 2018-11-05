@@ -77,8 +77,10 @@ CBullet * CBullet::Clone()
 
 void CBullet::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 {
-	if (pSrc->GetTag().compare("BulletBody") != 0 ||
-		pDest->GetTag().compare("BulletBody") != 0) {
+	if ((pSrc->GetTag().compare("BulletBody") != 0 ||
+		pDest->GetTag().compare("BulletBody") != 0) &&
+		(pSrc->GetTag().compare("TracePlayer") != 0 &&
+		pDest->GetTag().compare("TracePlayer") != 0)) {
 		Die();
 	}
 }
