@@ -2,6 +2,7 @@
 
 #include "../Scene/Layer.h"
 #include "../Core/Ref.h"
+#include "../Collider/Collider.h"
 
 class CObj :
 	public CRef
@@ -46,16 +47,30 @@ public:
 	}
 
 protected:
-	string					m_strTag;
+	//string					m_strTag;
 	POSITION				m_tPos;
 	_SIZE					m_tSize;
 	POSITION				m_tPivot;
 	class CTexture*			m_pTexture;
-	list<class CCollider*>	m_ColliderList;
+	list<CCollider*>	m_ColliderList;
 
 public:
-	const list<class CCollider*>* GetColliderList() const {
+	const list<CCollider*>* GetColliderList() const {
 		return &m_ColliderList;
+	}
+
+	template <typename T>
+	void AddCollisionFunction(const string& strTag, COLLISION_STATE eState, T* pObj, void(T::*pFunc)(CCollider*, CCollider*, float)) {
+		// template 안에서는 전방 선언 불가능
+		list <CCollider*>::iterator iter;
+		list <CCollider*>::iterator iterEnd = m_ColliderList.end();
+
+		for (iter = m_ColliderList.begin(); iter != iterEnd; iter++) {
+			if ((*iter)->GetTag() == strTag) {
+				(*iter)->AddCollisionFunction(eState, pObj, pFunc);
+				break;
+			}
+		}
 	}
 
 public:
@@ -64,6 +79,7 @@ public:
 		T* pCollider = new T;
 
 		pCollider->SetObj(this);
+		pCollider->SetTag(strTag);
 
 		if (!pCollider->Init()) {
 			SAFE_RELEASE(pCollider);
@@ -101,9 +117,9 @@ public:
 		return POSITION(GetLeft() + m_tSize.x / 2.f, GetTop() + m_tSize.y / 2.f);
 	}
 
-	string GetTag() const {
-		return m_strTag;
-	}
+	//string GetTag() const {
+	//	return m_strTag;
+	//}
 
 	POSITION GetPos() const {
 		return m_tPos;
@@ -118,9 +134,9 @@ public:
 	}
 
 public:
-	void SetTag(const string& strTag) {
-		m_strTag = strTag;
-	}
+	//void SetTag(const string& strTag) {
+	//	m_strTag = strTag;
+	//}
 
 	void SetPos(const POSITION& tPos) {
 		m_tPos = tPos;

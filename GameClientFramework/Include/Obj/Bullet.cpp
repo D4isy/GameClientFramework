@@ -1,6 +1,6 @@
 #include "Bullet.h"
 #include "../Resource/Texture.h"
-#include "../Collider/ColliderRect.h"
+#include "../Collider/ColliderSphere.h"
 
 CBullet::CBullet() :
 	m_fDist(0.f),
@@ -30,11 +30,11 @@ bool CBullet::Init()
 	m_pTexture->SetColorKey(0, 248, 0);
 
 
-	CColliderRect* pRC = AddCollider<CColliderRect>("Bullet");
+	CColliderSphere* pSphere = AddCollider<CColliderSphere>("BulletBody");
 
-	pRC->SetRect(-32.f, -32.f, 32.f, 32.f);
+	pSphere->SetSphere(POSITION(0.f, 0.f), 32.f);
 
-	SAFE_RELEASE(pRC);
+	SAFE_RELEASE(pSphere);
 	return true;
 }
 
@@ -73,4 +73,12 @@ void CBullet::Render(HDC hDC, float fDeltaTime)
 CBullet * CBullet::Clone()
 {
 	return new CBullet(*this);
+}
+
+void CBullet::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
+{
+	if (pSrc->GetTag().compare("BulletBody") != 0 ||
+		pDest->GetTag().compare("BulletBody") != 0) {
+		Die();
+	}
 }

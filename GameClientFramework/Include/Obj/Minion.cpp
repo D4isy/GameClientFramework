@@ -2,6 +2,7 @@
 #include "../Resource/Texture.h"
 #include "../Core/Core.h"
 #include "../Collider/ColliderRect.h"
+#include "Bullet.h"
 
 CMinion::CMinion() :
 	m_fFireTime(0.f),
@@ -92,12 +93,14 @@ CMinion * CMinion::Clone()
 
 void CMinion::CollisionBullet(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 {
-	MessageBox(NULL, TEXT("面倒"), TEXT("面倒"), MB_OK);
+	//MessageBox(NULL, TEXT("面倒"), TEXT("面倒"), MB_OK);
 }
 
 void CMinion::Fire()
 {
 	CObj* pBullet = CObj::CreateCloneObj("Bullet", "MinionBullet", m_pLayer);
+
+	pBullet->AddCollisionFunction("BulletBody", CS_ENTER, dynamic_cast<CBullet*>(pBullet), &CBullet::Hit);
 
 	(static_cast<CMoveObj*>(pBullet))->SetAngle(PI);
 

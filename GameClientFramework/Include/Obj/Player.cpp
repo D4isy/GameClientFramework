@@ -2,6 +2,9 @@
 #include "../Core/Timer.h"
 #include "../Resource/Texture.h"
 #include "../Core/Input.h"
+#include "Bullet.h"
+#include "../Collider/ColliderRect.h"
+#include "../Core/Camera.h"
 
 CPlayer::CPlayer()
 {
@@ -26,6 +29,17 @@ bool CPlayer::Init()
 	SetTexture("Player", L"Pig.bmp");
 
 	m_pTexture->SetColorKey(0, 248, 0);
+
+	// 충돌체 추가
+	CColliderRect* pRC = AddCollider<CColliderRect>("PlayerBody");
+
+	pRC->SetRect(-70.f, -113.f, 70.f, 113.f);
+	pRC->AddCollisionFunction(CS_ENTER, this, &CPlayer::Hit);
+
+	SAFE_RELEASE(pRC);
+
+	// 체력 설정
+	m_iHP = 1000;
 	return true;
 }
 
@@ -86,6 +100,14 @@ void CPlayer::Collision(float fDeltaTime)
 void CPlayer::Render(HDC hDC, float fDeltaTime)
 {
 	CMoveObj::Render(hDC, fDeltaTime);
+
+	wchar_t strHP[32] = {};
+	wsprintf(strHP, TEXT("HP : %d"), m_iHP);
+
+	POSITION tPos = m_tPos - m_tSize * m_tPivot;
+	tPos -= GET_SINGLE(CCamera)->GetPos();
+	TextOut(hDC, static_cast<int>(tPos.x), static_cast<int>(tPos.y), strHP, lstrlen(strHP));
+
 	//Rectangle(hDC, static_cast<int>(m_tPos.x), static_cast<int>(m_tPos.y), 
 	//	static_cast<int>(m_tPos.x + m_tSize.x), static_cast<int>(m_tPos.y + m_tSize.y));
 }
@@ -95,10 +117,18 @@ CPlayer * CPlayer::Clone()
 	return new CPlayer(*this);
 }
 
+void CPlayer::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
+{
+	m_iHP -= 5;
+}
+
 void CPlayer::Fire()
 {
 	CObj* pBullet = CObj::CreateCloneObj("Bullet", "PlayerBullet", m_pLayer);
 
+	// CS_ENTER 로 해놓으면 적과 충돌할 때 사라짐
+	// CS_LEAVE 로 해놓으면 적과 충돌하고 끝날 때 사라짐
+	pBullet->AddCollisionFunction("BulletBody", CS_ENTER, dynamic_cast<CBullet*>(pBullet), &CBullet::Hit);
 	// 오른쪽 가운데를 구한다.
 	POSITION tPos;
 	tPos.x = GetRight() + pBullet->GetSize().x * pBullet->GetPivot().x;

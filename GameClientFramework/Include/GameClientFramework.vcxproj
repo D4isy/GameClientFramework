@@ -151,10 +151,12 @@
   <ItemGroup>
     <ClCompile Include="Collider\Collider.cpp" />
     <ClCompile Include="Collider\ColliderRect.cpp" />
+    <ClCompile Include="Collider\ColliderSphere.cpp" />
     <ClCompile Include="Collider\CollisionManager.cpp" />
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Core.cpp" />
     <ClCompile Include="Core\Input.cpp" />
+    <ClCompile Include="Core\Math.cpp" />
     <ClCompile Include="Core\PathManager.cpp" />
     <ClCompile Include="Core\Ref.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
@@ -176,10 +178,12 @@
   <ItemGroup>
     <ClInclude Include="Collider\Collider.h" />
     <ClInclude Include="Collider\ColliderRect.h" />
+    <ClInclude Include="Collider\ColliderSphere.h" />
     <ClInclude Include="Collider\CollisionManager.h" />
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\Core.h" />
     <ClInclude Include="Core\Input.h" />
+    <ClInclude Include="Core\Math.h" />
     <ClInclude Include="Core\PathManager.h" />
     <ClInclude Include="Core\Ref.h" />
     <ClInclude Include="Core\Timer.h" />
