@@ -209,3 +209,9 @@ typedef struct _tagSphere {
 	}
 } SPHERE, *PSPHERE;
 
+typedef struct _tagPixel {
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+} PIXEL, *PPIXEL;
+

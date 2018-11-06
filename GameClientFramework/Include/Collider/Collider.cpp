@@ -128,3 +128,26 @@ bool CCollider::CollisionSphereToSphere(const SPHERE & src, const SPHERE & dest)
 
 	return fDist <= (src.fRadius + dest.fRadius);
 }
+
+bool CCollider::CollisionRectToPixel(const RECTANGLE & src, const vector<PIXEL>& vecPixel, int iWidth, int iHeight)
+{
+	int iStartX, iEndX;
+	int iStartY, iEndY;
+
+	iStartX = static_cast<int>(src.left < 0 ? 0 : src.left);
+	iEndX = static_cast<int>(src.right >= iWidth ? iWidth - 1 : src.right);
+
+	iStartY = static_cast<int>(src.top < 0 ? 0 : src.top);
+	iEndY = static_cast<int>(src.bottom >= iHeight ? iHeight - 1 : src.bottom);
+
+	for (int i = iStartY; i <= iEndY; i++) {
+		for (int j = iStartX; j <= iEndX; j++) {
+			int idx = i * iWidth + j;
+			const PIXEL& pixel = vecPixel[idx];
+			if (pixel.r == 255 && pixel.g == 0 && pixel.b == 255) {
+				return true;
+			}
+		}
+	}
+	return false;
+}

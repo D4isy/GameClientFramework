@@ -5,6 +5,7 @@
 #include "../Obj/Stage.h"
 #include "Layer.h"
 #include "../Core/Camera.h"
+#include "../Collider/ColliderPixel.h"
 
 CInGameScene::CInGameScene()
 {
@@ -39,6 +40,13 @@ bool CInGameScene::Init()
 	CLayer* pStageLayer = FindLayer("Stage");
 
 	CStage* pStage = CObj::CreateObj<CStage>("Stage", pStageLayer);
+
+	CColliderPixel* pPixel = pStage->AddCollider<CColliderPixel>("StageColl");
+
+	pPixel->SetPixelInfo("Stage2.bmp");
+
+	SAFE_RELEASE(pPixel);
+
 	SAFE_RELEASE(pStage);
 	return true;
 }

@@ -1,6 +1,7 @@
 #include "ColliderSphere.h"
 #include "../Obj/Obj.h"
 #include "ColliderRect.h"
+#include "ColliderPixel.h"
 
 
 CColliderSphere::CColliderSphere()
@@ -49,10 +50,13 @@ bool CColliderSphere::Collision(CCollider * pDest)
 {
 	switch (pDest->GetColliderType()) {
 	case CT_SPHERE:
-		return CollisionSphereToSphere(m_tWorldInfo, ((CColliderSphere*)pDest)->GetWorldInfo());
+		return CollisionSphereToSphere(m_tWorldInfo, dynamic_cast<CColliderSphere*>(pDest)->GetWorldInfo());
 
 	case CT_RECT:
-		return CollisionRectToSphere(((CColliderRect*)pDest)->GetWorldInfo(), m_tWorldInfo);
+		return CollisionRectToSphere(dynamic_cast<CColliderRect*>(pDest)->GetWorldInfo(), m_tWorldInfo);
+
+	case CT_PIXEL:
+		break;
 	}
 	return false;
 }

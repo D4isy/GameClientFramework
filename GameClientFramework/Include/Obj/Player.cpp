@@ -35,6 +35,7 @@ bool CPlayer::Init()
 
 	pRC->SetRect(-70.f, -113.f, 70.f, 113.f);
 	pRC->AddCollisionFunction(CS_ENTER, this, &CPlayer::Hit);
+	pRC->AddCollisionFunction(CS_STAY, this, &CPlayer::HitStay);
 
 	SAFE_RELEASE(pRC);
 
@@ -125,7 +126,19 @@ CPlayer * CPlayer::Clone()
 
 void CPlayer::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 {
-	m_iHP -= 5;
+	if (pDest->GetObj()->GetTag() == "MInionBullet") {
+		m_iHP -= 5;
+	}
+	else if (pDest->GetTag() == "StageColl") {
+		ClearGravity();
+	}
+}
+
+void CPlayer::HitStay(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
+{
+	if (pDest->GetTag() == "StageColl") {
+		ClearGravity();
+	}
 }
 
 void CPlayer::Fire()

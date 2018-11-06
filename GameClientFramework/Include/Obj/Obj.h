@@ -48,8 +48,13 @@ public:
 
 protected:
 	bool	m_bIsPhysics;
+	float	m_fGravityTime;
 
 public:
+	void ClearGravity() {
+		m_fGravityTime = 0.f;
+	}
+
 	void SetPhysics(bool bPhysics) {
 		m_bIsPhysics = bPhysics;
 	}

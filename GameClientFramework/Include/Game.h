@@ -20,7 +20,8 @@ using namespace std;
 
 #pragma comment(lib, "msimg32")
 
-#define		PI		3.141592f
+#define		PI			3.141592f
+#define		GRAVITY		0.98f
 
 // Path Key
 #define ROOT_PATH		"RootPath"
