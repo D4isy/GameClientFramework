@@ -23,7 +23,7 @@ bool CStage::Init()
 	SetSize(1920.f, 1080.f);
 	SetPivot(0.f, 0.f);
 
-	SetTexture("Stage1", L"Stage1.bmp");
+	SetTexture("Stage1", L"Stage2.bmp");
 	return true;
 }
 

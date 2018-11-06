@@ -9,7 +9,8 @@
 list<CObj*> CObj::m_ObjList;
 
 CObj::CObj() :
-	m_pTexture(NULL)
+	m_pTexture(NULL),
+	m_bIsPhysics(false)
 {
 }
 

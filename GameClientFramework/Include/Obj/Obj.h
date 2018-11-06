@@ -47,6 +47,18 @@ public:
 	}
 
 protected:
+	bool	m_bIsPhysics;
+
+public:
+	void SetPhysics(bool bPhysics) {
+		m_bIsPhysics = bPhysics;
+	}
+
+	bool GetPhysics() const {
+		return m_bIsPhysics;
+	}
+
+protected:
 	//string					m_strTag;
 	POSITION				m_tPos;
 	_SIZE					m_tSize;

@@ -16,6 +16,12 @@ CCore::CCore()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	// 메모리 릭 호출 번호를 쓰면 자동으로 Break 시킴
 	//_CrtSetBreakAlloc(258);
+
+#ifdef _DEBUG
+	// 콘솔창을 생성 시켜주는 함수
+	AllocConsole();
+#endif // _DEBUG
+
 }
 
 
@@ -30,6 +36,10 @@ CCore::~CCore()
 	DESTROY_SINGLE(CTimer);
 
 	ReleaseDC(m_hWnd, m_hDC);
+#ifdef _DEBUG
+	// 콘솔창을 제거 시켜주는 함수
+	FreeConsole();
+#endif // _DEBUG
 }
 
 bool CCore::Init(HINSTANCE hInst)
@@ -48,7 +58,7 @@ bool CCore::Init(HINSTANCE hInst)
 	m_hDC = GetDC(m_hWnd);
 
 	// 타이머 초기화
-	if (!GET_SINGLE(CTimer)->Init()) {
+	if (!GET_SINGLE(CTimer)->Init(m_hWnd)) {
 		return false;
 	}
 

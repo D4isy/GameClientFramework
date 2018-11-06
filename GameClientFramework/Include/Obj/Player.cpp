@@ -40,6 +40,12 @@ bool CPlayer::Init()
 
 	// 체력 설정
 	m_iHP = 1000;
+
+	// 질량을 적용한다.
+
+	// 중력을 적용한다.
+	SetPhysics(true);
+
 	return true;
 }
 

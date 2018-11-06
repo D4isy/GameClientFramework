@@ -2,6 +2,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <conio.h>
 #include <list>
 #include <vector>
 #include <unordered_map>
