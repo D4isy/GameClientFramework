@@ -11,8 +11,16 @@ protected:
 private:
 	float		m_fAngle;
 	float		m_fSpeed;
+	bool		m_bMove;
+	bool		m_bFalling;
+	float		m_fForce;		// 계산용
+	float		m_fForceOrigin;	// 원본
 
 public:
+	void SetForce(float fForce) {
+		m_fForceOrigin = fForce;
+	}
+
 	void SetAngle(float fAngle) {
 		m_fAngle = fAngle;
 	}
@@ -42,6 +50,8 @@ public:
 	void MoveY(float y, float fDeltaTime);
 	void MoveAngle();
 	void MoveAngle(float fDeltaTime);
+	void Jump();
+	void JumpEnd();
 
 public:
 	virtual bool Init() = 0;

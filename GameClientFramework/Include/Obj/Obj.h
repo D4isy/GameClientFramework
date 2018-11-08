@@ -64,7 +64,7 @@ public:
 	}
 
 protected:
-	//string					m_strTag;
+	//string				m_strTag;
 	POSITION				m_tPos;
 	_SIZE					m_tSize;
 	POSITION				m_tPivot;

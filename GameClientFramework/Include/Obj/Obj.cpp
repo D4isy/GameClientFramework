@@ -5,7 +5,6 @@
 #include "../Resource/Texture.h"
 #include "../Core/Camera.h"
 #include "../Collider/Collider.h"
-#include "../Core/Timer.h"
 
 list<CObj*> CObj::m_ObjList;
 
@@ -122,16 +121,6 @@ void CObj::Input(float fDeltaTime)
 
 int CObj::Update(float fDeltaTime)
 {
-	if (m_bIsPhysics) {
-		m_fGravityTime += fDeltaTime;
-
-		if (GET_SINGLE(CTimer)->GetTimeScale() == 0.f) {
-			m_fGravityTime = 0.f;
-		}
-
-		m_tPos.y += (GRAVITY * m_fGravityTime * m_fGravityTime);
-	}
-
 	list<CCollider*>::iterator iter;
 	list<CCollider*>::iterator iterEnd = m_ColliderList.end();
 

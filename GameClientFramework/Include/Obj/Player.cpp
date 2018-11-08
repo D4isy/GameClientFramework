@@ -47,6 +47,9 @@ bool CPlayer::Init()
 	// 중력을 적용한다.
 	SetPhysics(true);
 
+	// 점프할 힘을 설정한다.
+	SetForce(300.f);
+
 	return true;
 }
 
@@ -54,13 +57,13 @@ void CPlayer::Input(float fDeltaTime)
 {
 	CMoveObj::Input(fDeltaTime);
 
-	if (KEYPRESS("MoveFront")) {
-		MoveYFromSpeed(fDeltaTime, MD_BACK);
-	}
+	//if (KEYPRESS("MoveFront")) {
+	//	MoveYFromSpeed(fDeltaTime, MD_BACK);
+	//}
 
-	if (KEYPRESS("MoveBack")) {
-		MoveYFromSpeed(fDeltaTime, MD_FRONT);
-	}
+	//if (KEYPRESS("MoveBack")) {
+	//	MoveYFromSpeed(fDeltaTime, MD_FRONT);
+	//}
 
 	if (KEYPRESS("MoveLeft")) {
 		MoveXFromSpeed(fDeltaTime, MD_BACK);
@@ -80,6 +83,10 @@ void CPlayer::Input(float fDeltaTime)
 
 	if (KEYDOWN("Fire")) {
 		Fire();
+	}
+
+	if (KEYDOWN("Jump")) {
+		Jump();
 	}
 
 	if (KEYDOWN("Skill1")) {
@@ -131,6 +138,7 @@ void CPlayer::Hit(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 	}
 	else if (pDest->GetTag() == "StageColl") {
 		ClearGravity();
+		JumpEnd();
 	}
 }
 
@@ -138,6 +146,7 @@ void CPlayer::HitStay(CCollider * pSrc, CCollider * pDest, float fDeltaTime)
 {
 	if (pDest->GetTag() == "StageColl") {
 		ClearGravity();
+		JumpEnd();
 	}
 }
 

@@ -10,7 +10,8 @@ bool CInput::Init(HWND hWnd)
 	AddKey('S', "MoveBack");
 	AddKey("MoveLeft", 'A');
 	AddKey("MoveRight", 'D');
-	AddKey("Fire", VK_SPACE);
+	AddKey("Fire", VK_LSHIFT);
+	AddKey("Jump", VK_SPACE);
 	AddKey(VK_CONTROL, "Skill1", '1');
 	AddKey("SpeedUp", VK_F1);
 	AddKey("SpeedDown", VK_F2);
